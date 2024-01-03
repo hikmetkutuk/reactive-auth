@@ -1,1 +1,21 @@
+logging:
+  level:
+    root: info
+    web: debug
 
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/reactive-auth
+      gridfs:
+        database: files
+        bucket: images
+  webflux:
+    problemdetails:
+      enabled: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: f963bc23cb42352e767c957548b38ad0a1ac43ce988e9254c25e3e6c2092e4d1

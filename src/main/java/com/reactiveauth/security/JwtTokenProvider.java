@@ -33,9 +33,6 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    // validity in milliseconds
-    private long validityInMs = 3600000; // 1h
-
     @PostConstruct
     public void init() {
         var secret = Base64.getEncoder()
@@ -56,6 +53,9 @@ public class JwtTokenProvider {
         var claims = claimsBuilder.build();
 
         Date now = new Date();
+        // validity in milliseconds
+        // 1h
+        long validityInMs = 3600000;
         Date validity = new Date(now.getTime() + validityInMs);
 
         return Jwts.builder().claims(claims).issuedAt(now).expiration(validity)

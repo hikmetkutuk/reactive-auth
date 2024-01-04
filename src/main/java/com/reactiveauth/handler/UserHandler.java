@@ -2,10 +2,12 @@ package com.reactiveauth.handler;
 
 import com.reactiveauth.dto.request.AuthRequest;
 import com.reactiveauth.dto.request.UserRequest;
+import com.reactiveauth.dto.response.UserResponse;
 import com.reactiveauth.service.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -30,5 +32,10 @@ public class UserHandler {
                 .flatMap(userService::login)
                 .flatMap(registeredUser -> ServerResponse.ok().bodyValue(registeredUser))
                 .onErrorResume(error -> ServerResponse.badRequest().bodyValue(error.getMessage()));
+    }
+
+    public Mono<ServerResponse> handleGetAllUsers(ServerRequest request) {
+        Flux<UserResponse> users = userService.getAllUsers();
+        return ServerResponse.ok().body(users, UserResponse.class);
     }
 }

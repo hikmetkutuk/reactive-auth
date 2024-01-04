@@ -15,6 +15,7 @@ public class UserRouter {
     public static final String USER_ROUTE = "/api/v1/user";
     public static final String USER_REGISTER = USER_ROUTE + "/register";
     public static final String USER_LOGIN = USER_ROUTE + "/login";
+    public static final String USER_LIST = USER_ROUTE + "/list";
 
     private final UserHandler userHandler;
 
@@ -27,6 +28,7 @@ public class UserRouter {
         return route()
                 .POST(USER_REGISTER, accept(APPLICATION_JSON), userHandler::handleRegister)
                 .POST(USER_LOGIN, accept(APPLICATION_JSON), userHandler::handleLogin)
+                .POST(USER_LIST, accept(APPLICATION_JSON), userHandler::handleGetAllUsers)
                 .build();
     }
 }

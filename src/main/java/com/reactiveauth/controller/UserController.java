@@ -2,13 +2,12 @@ package com.reactiveauth.controller;
 
 import com.reactiveauth.dto.request.AuthRequest;
 import com.reactiveauth.dto.request.UserRequest;
+import com.reactiveauth.dto.response.UserResponse;
 import com.reactiveauth.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -28,5 +27,10 @@ public class UserController {
     @PostMapping("/login")
     public Mono<ResponseEntity<?>> register(@Valid @RequestBody AuthRequest authRequest) {
         return userService.login(authRequest);
+    }
+
+    @GetMapping("/list")
+    public Flux<UserResponse> getAllUsers() {
+        return userService.getAllUsers();
     }
 }

@@ -1,5 +1,6 @@
 package com.reactiveauth.handler;
 
+import com.reactiveauth.dto.request.AuthRequest;
 import com.reactiveauth.dto.request.UserRequest;
 import com.reactiveauth.service.UserService;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,14 @@ public class UserHandler {
         return serverRequest
                 .bodyToMono(UserRequest.class)
                 .flatMap(userService::register)
+                .flatMap(registeredUser -> ServerResponse.ok().bodyValue(registeredUser))
+                .onErrorResume(error -> ServerResponse.badRequest().bodyValue(error.getMessage()));
+    }
+
+    public Mono<ServerResponse> handleLogin(ServerRequest serverRequest) {
+        return serverRequest
+                .bodyToMono(AuthRequest.class)
+                .flatMap(userService::login)
                 .flatMap(registeredUser -> ServerResponse.ok().bodyValue(registeredUser))
                 .onErrorResume(error -> ServerResponse.badRequest().bodyValue(error.getMessage()));
     }

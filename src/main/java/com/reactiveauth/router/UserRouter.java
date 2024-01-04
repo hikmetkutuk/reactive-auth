@@ -14,6 +14,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class UserRouter {
     public static final String USER_ROUTE = "/api/v1/user";
     public static final String USER_REGISTER = USER_ROUTE + "/register";
+    public static final String USER_LOGIN = USER_ROUTE + "/login";
 
     private final UserHandler userHandler;
 
@@ -25,6 +26,7 @@ public class UserRouter {
     public RouterFunction<ServerResponse> userRoutes() {
         return route()
                 .POST(USER_REGISTER, accept(APPLICATION_JSON), userHandler::handleRegister)
+                .POST(USER_LOGIN, accept(APPLICATION_JSON), userHandler::handleLogin)
                 .build();
     }
 }

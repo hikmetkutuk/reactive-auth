@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authenticationManager(reactiveAuthenticationManager)
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/api/v1/user/register").permitAll()
+                        .pathMatchers("/api/v1/user/register", "/api/v1/user/login").permitAll()
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(new JwtTokenAuthenticationFilter(tokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)

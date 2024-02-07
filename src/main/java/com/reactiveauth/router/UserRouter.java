@@ -28,7 +28,7 @@ public class UserRouter {
         return route()
                 .POST(USER_REGISTER, accept(APPLICATION_JSON), userHandler::handleRegister)
                 .POST(USER_LOGIN, accept(APPLICATION_JSON), userHandler::handleLogin)
-                .POST(USER_LIST, accept(APPLICATION_JSON), userHandler::handleGetAllUsers)
+                .GET(USER_LIST, accept(APPLICATION_JSON), userHandler::handleGetAllUsers)
                 .build();
     }
 }
